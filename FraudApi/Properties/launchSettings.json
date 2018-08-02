@@ -19,7 +19,6 @@
     },
     "FraudApi": {
       "commandName": "Project",
-      "launchBrowser": true,
       "launchUrl": "api/orderfraud",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

@@ -1,7 +1,7 @@
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace Model.Order
+namespace FraudAPI.Model.Order
 {
     /// <summary>
     /// 

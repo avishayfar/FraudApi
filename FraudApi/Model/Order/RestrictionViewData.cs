@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Model.Order
+namespace FraudAPI.Model.Order
 {   
     /// <summary>
     /// Represents information of the calculated selling Restriction on given order .

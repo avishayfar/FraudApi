@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace Model.Order {
+namespace FraudAPI.Model.Order {
 
   /// <summary>
   /// Criteria details to search orders. Order will have to match ALL provided fields in order to be in the result.

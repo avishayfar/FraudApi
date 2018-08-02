@@ -1,0 +1,38 @@
+﻿
+
+POST  http://localhost:50521/orderfraud
+
+
+Request
+
+{
+                "orderLines": [
+                                {
+                                                //Simple item uom Each
+                                                "lineId": "1",
+                                                "productId": {
+                                                                "value": "299"
+                                                },
+                                                "quantity": {
+                                                                "value": 1,
+                                                                "unitOfMeasure": "EA"
+                                                }
+                                },
+                                {
+                                                //Simple item uom Kg
+                                                "lineId": "2",
+                                                "productId": {
+                                                                "value": "22"
+                                                },
+                                                "quantity": {
+                                                                "value": 1.5,
+                                                                "unitOfMeasure": "KGM"
+                                                },
+                                },                             
+                                
+                ]
+}
+
+Response
+
+0.5

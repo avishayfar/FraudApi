@@ -2,7 +2,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace Model.Order {
+namespace FraudAPI.Model.Order {
 
   /// <summary>
   /// Captures constraint violation information for an API request
