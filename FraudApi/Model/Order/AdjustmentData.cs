@@ -25,74 +25,80 @@ using System.ComponentModel.DataAnnotations;
 namespace FraudAPI.Model.Order
 {
     /// <summary>
-    /// OrderCriteriaSort
+    /// AdjustmentData
     /// </summary>
     [DataContract]
-    public partial class OrderCriteriaSort :  IEquatable<OrderCriteriaSort>, IValidatableObject
+    public partial class AdjustmentData :  IEquatable<AdjustmentData>, IValidatableObject
     {
         /// <summary>
-        /// The column to sort the results by
+        /// Identifies how the adjustment is applied to the order
         /// </summary>
-        /// <value>The column to sort the results by</value>
+        /// <value>Identifies how the adjustment is applied to the order</value>
         [JsonConverter(typeof(StringEnumConverter))]
-        public enum ColumnEnum
+        public enum LevelEnum
         {
             
             /// <summary>
-            /// Enum CreatedDate for value: CreatedDate
+            /// Enum ITEM for value: ITEM
             /// </summary>
-            [EnumMember(Value = "CreatedDate")]
-            CreatedDate = 1,
+            [EnumMember(Value = "ITEM")]
+            ITEM = 1,
             
             /// <summary>
-            /// Enum UpdatedDate for value: UpdatedDate
+            /// Enum ORDER for value: ORDER
             /// </summary>
-            [EnumMember(Value = "UpdatedDate")]
-            UpdatedDate = 2
+            [EnumMember(Value = "ORDER")]
+            ORDER = 2
         }
 
         /// <summary>
-        /// The column to sort the results by
+        /// Identifies how the adjustment is applied to the order
         /// </summary>
-        /// <value>The column to sort the results by</value>
-        [DataMember(Name="column", EmitDefaultValue=false)]
-        public ColumnEnum? Column { get; set; }
+        /// <value>Identifies how the adjustment is applied to the order</value>
+        [DataMember(Name="level", EmitDefaultValue=false)]
+        public LevelEnum? Level { get; set; }
         /// <summary>
-        /// The direction to sort the results
+        /// Identifies the adjustment type
         /// </summary>
-        /// <value>The direction to sort the results</value>
+        /// <value>Identifies the adjustment type</value>
         [JsonConverter(typeof(StringEnumConverter))]
-        public enum DirectionEnum
+        public enum TypeEnum
         {
             
             /// <summary>
-            /// Enum Asc for value: Asc
+            /// Enum PROMO for value: PROMO
             /// </summary>
-            [EnumMember(Value = "Asc")]
-            Asc = 1,
+            [EnumMember(Value = "PROMO")]
+            PROMO = 1,
             
             /// <summary>
-            /// Enum Desc for value: Desc
+            /// Enum COMP for value: COMP
             /// </summary>
-            [EnumMember(Value = "Desc")]
-            Desc = 2
+            [EnumMember(Value = "COMP")]
+            COMP = 2,
+            
+            /// <summary>
+            /// Enum LOYALTY for value: LOYALTY
+            /// </summary>
+            [EnumMember(Value = "LOYALTY")]
+            LOYALTY = 3
         }
 
         /// <summary>
-        /// The direction to sort the results
+        /// Identifies the adjustment type
         /// </summary>
-        /// <value>The direction to sort the results</value>
-        [DataMember(Name="direction", EmitDefaultValue=false)]
-        public DirectionEnum? Direction { get; set; }
+        /// <value>Identifies the adjustment type</value>
+        [DataMember(Name="type", EmitDefaultValue=false)]
+        public TypeEnum? Type { get; set; }
         /// <summary>
-        /// Initializes a new instance of the <see cref="OrderCriteriaSort" /> class.
+        /// Initializes a new instance of the <see cref="AdjustmentData" /> class.
         /// </summary>
-        /// <param name="Column">The column to sort the results by.</param>
-        /// <param name="Direction">The direction to sort the results.</param>
-        public OrderCriteriaSort(ColumnEnum? Column = default(ColumnEnum?), DirectionEnum? Direction = default(DirectionEnum?))
+        /// <param name="Level">Identifies how the adjustment is applied to the order.</param>
+        /// <param name="Type">Identifies the adjustment type.</param>
+        public AdjustmentData(LevelEnum? Level = default(LevelEnum?), TypeEnum? Type = default(TypeEnum?))
         {
-            this.Column = Column;
-            this.Direction = Direction;
+            this.Level = Level;
+            this.Type = Type;
         }
         
 
@@ -104,9 +110,9 @@ namespace FraudAPI.Model.Order
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class OrderCriteriaSort {\n");
-            sb.Append("  Column: ").Append(Column).Append("\n");
-            sb.Append("  Direction: ").Append(Direction).Append("\n");
+            sb.Append("class AdjustmentData {\n");
+            sb.Append("  Level: ").Append(Level).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -127,29 +133,29 @@ namespace FraudAPI.Model.Order
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as OrderCriteriaSort);
+            return this.Equals(input as AdjustmentData);
         }
 
         /// <summary>
-        /// Returns true if OrderCriteriaSort instances are equal
+        /// Returns true if AdjustmentData instances are equal
         /// </summary>
-        /// <param name="input">Instance of OrderCriteriaSort to be compared</param>
+        /// <param name="input">Instance of AdjustmentData to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(OrderCriteriaSort input)
+        public bool Equals(AdjustmentData input)
         {
             if (input == null)
                 return false;
 
             return 
                 (
-                    this.Column == input.Column ||
-                    (this.Column != null &&
-                    this.Column.Equals(input.Column))
+                    this.Level == input.Level ||
+                    (this.Level != null &&
+                    this.Level.Equals(input.Level))
                 ) && 
                 (
-                    this.Direction == input.Direction ||
-                    (this.Direction != null &&
-                    this.Direction.Equals(input.Direction))
+                    this.Type == input.Type ||
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 );
         }
 
@@ -162,10 +168,10 @@ namespace FraudAPI.Model.Order
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Column != null)
-                    hashCode = hashCode * 59 + this.Column.GetHashCode();
-                if (this.Direction != null)
-                    hashCode = hashCode * 59 + this.Direction.GetHashCode();
+                if (this.Level != null)
+                    hashCode = hashCode * 59 + this.Level.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }

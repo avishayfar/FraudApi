@@ -25,39 +25,43 @@ using System.ComponentModel.DataAnnotations;
 namespace FraudAPI.Model.Order
 {
     /// <summary>
-    /// The unique ID of a topic
+    /// OrderLineGroupData
     /// </summary>
     [DataContract]
-    public partial class TopicIdData :  IEquatable<TopicIdData>, IValidatableObject
+    public partial class OrderLineGroupData :  IEquatable<OrderLineGroupData>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="TopicIdData" /> class.
+        /// Initializes a new instance of the <see cref="OrderLineGroupData" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
-        protected TopicIdData() { }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TopicIdData" /> class.
-        /// </summary>
-        /// <param name="Name">The name of the topic. (required).</param>
-        public TopicIdData(string Name = default(string))
+        /// <param name="Name">OrderLineGroup name.</param>
+        /// <param name="OrderLineIds">List of Order Line Item IDs. Items must exist on the order.</param>
+        /// <param name="LineId">LineId.</param>
+        public OrderLineGroupData(string Name = default(string), List<string> OrderLineIds = default(List<string>), string LineId = default(string))
         {
-            // to ensure "Name" is required (not null)
-            if (Name == null)
-            {
-                throw new InvalidDataException("Name is a required property for TopicIdData and cannot be null");
-            }
-            else
-            {
-                this.Name = Name;
-            }
+            this.Name = Name;
+            this.OrderLineIds = OrderLineIds;
+            this.LineId = LineId;
         }
         
         /// <summary>
-        /// The name of the topic.
+        /// OrderLineGroup name
         /// </summary>
-        /// <value>The name of the topic.</value>
+        /// <value>OrderLineGroup name</value>
         [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
+
+        /// <summary>
+        /// List of Order Line Item IDs. Items must exist on the order
+        /// </summary>
+        /// <value>List of Order Line Item IDs. Items must exist on the order</value>
+        [DataMember(Name="orderLineIds", EmitDefaultValue=false)]
+        public List<string> OrderLineIds { get; set; }
+
+        /// <summary>
+        /// Gets or Sets LineId
+        /// </summary>
+        [DataMember(Name="lineId", EmitDefaultValue=false)]
+        public string LineId { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -66,8 +70,10 @@ namespace FraudAPI.Model.Order
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class TopicIdData {\n");
+            sb.Append("class OrderLineGroupData {\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  OrderLineIds: ").Append(OrderLineIds).Append("\n");
+            sb.Append("  LineId: ").Append(LineId).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -88,15 +94,15 @@ namespace FraudAPI.Model.Order
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as TopicIdData);
+            return this.Equals(input as OrderLineGroupData);
         }
 
         /// <summary>
-        /// Returns true if TopicIdData instances are equal
+        /// Returns true if OrderLineGroupData instances are equal
         /// </summary>
-        /// <param name="input">Instance of TopicIdData to be compared</param>
+        /// <param name="input">Instance of OrderLineGroupData to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(TopicIdData input)
+        public bool Equals(OrderLineGroupData input)
         {
             if (input == null)
                 return false;
@@ -106,6 +112,16 @@ namespace FraudAPI.Model.Order
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
+                ) && 
+                (
+                    this.OrderLineIds == input.OrderLineIds ||
+                    this.OrderLineIds != null &&
+                    this.OrderLineIds.SequenceEqual(input.OrderLineIds)
+                ) && 
+                (
+                    this.LineId == input.LineId ||
+                    (this.LineId != null &&
+                    this.LineId.Equals(input.LineId))
                 );
         }
 
@@ -120,6 +136,10 @@ namespace FraudAPI.Model.Order
                 int hashCode = 41;
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.OrderLineIds != null)
+                    hashCode = hashCode * 59 + this.OrderLineIds.GetHashCode();
+                if (this.LineId != null)
+                    hashCode = hashCode * 59 + this.LineId.GetHashCode();
                 return hashCode;
             }
         }
@@ -131,25 +151,6 @@ namespace FraudAPI.Model.Order
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            // Name (string) maxLength
-            if(this.Name != null && this.Name.Length > 256)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Name, length must be less than 256.", new [] { "Name" });
-            }
-
-            // Name (string) minLength
-            if(this.Name != null && this.Name.Length < 1)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Name, length must be greater than 1.", new [] { "Name" });
-            }
-
-            // Name (string) pattern
-            Regex regexName = new Regex(@"\\p{Alpha}[\\w-]*", RegexOptions.CultureInvariant);
-            if (false == regexName.Match(this.Name).Success)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Name, must match a pattern of " + regexName, new [] { "Name" });
-            }
-
             yield break;
         }
     }

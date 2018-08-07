@@ -13,8 +13,20 @@ namespace FraudApi.Model
             Values = values;
         }
 
-       public  List<string> ColumnsNames { get; set; }
+        public TransactionData(Dictionary<string, string> columnsValues)
+        {
+            ColumnsNames = new List<string>();
+            Values = new List<string>();
 
-       public List<string> Values { get; set; }
+            foreach (var colValue in columnsValues)
+            {
+                ColumnsNames.Add(colValue.Key);
+                Values.Add(colValue.Value);
+            }
+        }
+
+        public  List<string> ColumnsNames { get; set; }
+
+        public List<string> Values { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using FraudAPI.Model.Order;
 using FraudApi.Model;
 using FraudApi.Client;
+using FraudApi.Transaction;
 
 namespace FraudApi.Controllers
 {
@@ -14,6 +15,8 @@ namespace FraudApi.Controllers
     [ApiController]
     public class OrderFraudController : ControllerBase
     {
+
+        TransactionDataCreatorFactory TransactionDataCreatorFactory = new TransactionDataCreatorFactory();
 
         //POST api/OrderFraud
         [HttpPost]
@@ -31,10 +34,8 @@ namespace FraudApi.Controllers
 
         private TransactionData GetTransactionDataFromOrder(OrderData order)
         {
-            List<string> columnNames = new List<string>() { "NumberOfItems", "TransactionTotal", "NumberOfVoid", "Tp1" };
-            List<string> values = new List<string>() { "3", "3000", "3", "0" };
-
-            TransactionData transactionData = new TransactionData(columnNames, values);
+            var transactionDataCreator = TransactionDataCreatorFactory.GetTransactionDataCreator();
+            var transactionData = transactionDataCreator.Create(order);
             return transactionData;
         }
 

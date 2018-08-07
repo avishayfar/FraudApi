@@ -48,7 +48,8 @@ namespace FraudApi.Client
                 "transactions", transactionData);
             response.EnsureSuccessStatusCode();
 
-            return 0;
+            double returnValue = response.Content.ReadAsAsync<double>().Result;
+            return returnValue;
         }
 
        

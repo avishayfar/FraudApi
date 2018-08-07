@@ -25,39 +25,35 @@ using System.ComponentModel.DataAnnotations;
 namespace FraudAPI.Model.Order
 {
     /// <summary>
-    /// The unique ID of a topic
+    /// CheckInOriginData
     /// </summary>
     [DataContract]
-    public partial class TopicIdData :  IEquatable<TopicIdData>, IValidatableObject
+    public partial class CheckInOriginData :  IEquatable<CheckInOriginData>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="TopicIdData" /> class.
+        /// Initializes a new instance of the <see cref="CheckInOriginData" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
-        protected TopicIdData() { }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TopicIdData" /> class.
-        /// </summary>
-        /// <param name="Name">The name of the topic. (required).</param>
-        public TopicIdData(string Name = default(string))
+        /// <param name="Type">Check-in origin type.</param>
+        /// <param name="Id">A specific number of the origin type to help identify it.</param>
+        public CheckInOriginData(string Type = default(string), int? Id = default(int?))
         {
-            // to ensure "Name" is required (not null)
-            if (Name == null)
-            {
-                throw new InvalidDataException("Name is a required property for TopicIdData and cannot be null");
-            }
-            else
-            {
-                this.Name = Name;
-            }
+            this.Type = Type;
+            this.Id = Id;
         }
         
         /// <summary>
-        /// The name of the topic.
+        /// Check-in origin type
         /// </summary>
-        /// <value>The name of the topic.</value>
-        [DataMember(Name="name", EmitDefaultValue=false)]
-        public string Name { get; set; }
+        /// <value>Check-in origin type</value>
+        [DataMember(Name="type", EmitDefaultValue=false)]
+        public string Type { get; set; }
+
+        /// <summary>
+        /// A specific number of the origin type to help identify it
+        /// </summary>
+        /// <value>A specific number of the origin type to help identify it</value>
+        [DataMember(Name="id", EmitDefaultValue=false)]
+        public int? Id { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -66,8 +62,9 @@ namespace FraudAPI.Model.Order
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class TopicIdData {\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("class CheckInOriginData {\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -88,24 +85,29 @@ namespace FraudAPI.Model.Order
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as TopicIdData);
+            return this.Equals(input as CheckInOriginData);
         }
 
         /// <summary>
-        /// Returns true if TopicIdData instances are equal
+        /// Returns true if CheckInOriginData instances are equal
         /// </summary>
-        /// <param name="input">Instance of TopicIdData to be compared</param>
+        /// <param name="input">Instance of CheckInOriginData to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(TopicIdData input)
+        public bool Equals(CheckInOriginData input)
         {
             if (input == null)
                 return false;
 
             return 
                 (
-                    this.Name == input.Name ||
-                    (this.Name != null &&
-                    this.Name.Equals(input.Name))
+                    this.Type == input.Type ||
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
+                ) && 
+                (
+                    this.Id == input.Id ||
+                    (this.Id != null &&
+                    this.Id.Equals(input.Id))
                 );
         }
 
@@ -118,8 +120,10 @@ namespace FraudAPI.Model.Order
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Name != null)
-                    hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Id != null)
+                    hashCode = hashCode * 59 + this.Id.GetHashCode();
                 return hashCode;
             }
         }
@@ -131,25 +135,6 @@ namespace FraudAPI.Model.Order
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            // Name (string) maxLength
-            if(this.Name != null && this.Name.Length > 256)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Name, length must be less than 256.", new [] { "Name" });
-            }
-
-            // Name (string) minLength
-            if(this.Name != null && this.Name.Length < 1)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Name, length must be greater than 1.", new [] { "Name" });
-            }
-
-            // Name (string) pattern
-            Regex regexName = new Regex(@"\\p{Alpha}[\\w-]*", RegexOptions.CultureInvariant);
-            if (false == regexName.Match(this.Name).Success)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Name, must match a pattern of " + regexName, new [] { "Name" });
-            }
-
             yield break;
         }
     }
