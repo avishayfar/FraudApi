@@ -37,7 +37,7 @@ namespace FraudApi.Client
             }
             catch (Exception e)
             {
-                return 1;
+                return 77777;
             }
            
         }
