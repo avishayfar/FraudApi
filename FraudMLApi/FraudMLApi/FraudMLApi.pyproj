@@ -29,6 +29,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.py" />
+    <Compile Include="DAO\TransactionDao.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ML\Fraud.py">
       <SubType>Code</SubType>
     </Compile>

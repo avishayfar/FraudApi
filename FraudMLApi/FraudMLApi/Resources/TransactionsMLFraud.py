@@ -3,6 +3,8 @@ from ML.Fraud import *
 from flask_restful import fields, marshal_with, reqparse, Resource
 from flask import jsonify
 import json
+from DAO.TransactionDao import *
+
 
 
 
@@ -59,6 +61,25 @@ class TransactionsApi(Resource):
             return jsonify(float(fruadVal))
         except Exception: 
             return jsonify(55555)
+
+
+class TransactionsResultSavingApi(Resource):
+       
+    #@marshal_with(transaction_fields)
+    def post(self):
+        args = transaction_parser.parse_args()
+        columnsNameLst = args['ColumnsNames']
+        valuesLst = args['Values'] 
+        transaction = Transaction(columnsNameLst, valuesLst)
+        transactionDao = TransactionDao()
+        retVal = transactionDao.Save(transaction)
+        return jsonify(retVal)
+      
+
+
+
+
+
       
 
 

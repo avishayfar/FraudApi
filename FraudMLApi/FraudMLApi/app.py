@@ -14,7 +14,7 @@ api = Api(app)
 
 api.add_resource(TransactionsApi, '/transactions')
 api.add_resource(TransactionApi,  '/transaction/<transaction_id>')
-
+api.add_resource(TransactionsResultSavingApi,  '/transactionFraudSaving')
 
 if __name__ == '__main__':
     app.run(debug=False, port=5002)
