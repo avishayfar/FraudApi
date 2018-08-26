@@ -6,8 +6,6 @@ import json
 from DAO.TransactionDao import *
 
 
-
-
 transaction_parser = reqparse.RequestParser()  
 transaction_parser.add_argument('ColumnsNames', required=True ,help='Feature Names' , action='append')
 transaction_parser.add_argument('Values',       required=True ,help='Feature Values', action='append')

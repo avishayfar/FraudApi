@@ -7,5 +7,6 @@ class Transaction:
        self.ColumnsNames = columnsNameLst
        self.Values = valuesLst
 
-    def ColNamesWithValues():
-        return dict(zip(transaction.ColumnsNames, transaction.values))
+    def ColNamesWithValues(self):
+        colNamesWithValues = dict(zip(self.ColumnsNames, self.Values))
+        return colNamesWithValues

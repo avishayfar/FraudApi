@@ -1,4 +1,5 @@
- Request
+
+Request
 
 POST http://localhost:5002/transactions
 
@@ -37,3 +38,46 @@ Response
 
 
 0.7
+
+-------------------------------------
+-----------------------------------
+
+ Request
+
+POST  http://localhost:5002/transactionFraudSaving
+
+{
+  "ColumnsNames": [
+    "ItemNzd",
+    "totalNzd",
+    "voidedItemsNzd",
+    "voidedLineNzd",
+    "distinctItemNzd",
+    "earlyMorning",
+    "lateMorning",
+    "lunch",
+    "afternoon",
+    "evening",
+    "lateNight",
+    "quantitiyItemsNzd",
+	"RescanResult"
+  ],
+  "Values": [
+    "-0.86726123",
+    "-0.774671",
+    "-0.1025641",
+    "-0.25470374",
+    "-0.82614",
+    "0",
+    "0",
+    "0",
+    "0",
+    "1",
+    "0",
+    "-0.5709531"
+  ]
+}
+
+Response
+
+true
