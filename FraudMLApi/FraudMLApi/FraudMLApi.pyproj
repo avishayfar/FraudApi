@@ -29,13 +29,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.py" />
-    <Compile Include="DAO\TransactionDao.py">
+    <Compile Include="Connectivitiy\TransactionDao.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ML\Fraud.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ML\MlModelBuilder.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Model\Retail.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Old\resourceOld.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Resources\TransactionsMLFraud.py">
@@ -60,7 +66,8 @@
   <ItemGroup>
     <Folder Include="Model\" />
     <Folder Include="ML\" />
-    <Folder Include="DAO\" />
+    <Folder Include="Connectivitiy\" />
+    <Folder Include="Old\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />

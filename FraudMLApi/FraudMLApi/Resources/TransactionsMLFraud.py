@@ -3,7 +3,7 @@ from ML.Fraud import *
 from flask_restful import fields, marshal_with, reqparse, Resource
 from flask import jsonify
 import json
-from DAO.TransactionDao import *
+from Connectivitiy.TransactionDao import *
 
 
 transaction_parser = reqparse.RequestParser()  
@@ -15,33 +15,6 @@ transaction_fields = {
     'ColumnsNames': fields.List(fields.String),
     'Values': fields.List(fields.String),
 }
-
-def abort_if_todo_doesnt_exist(transaction_id):
-    if transaction_id not in TRANSACTIONS:
-        abort(404, message="transaction {} doesn't exist".format(transaction_id))
-
-class TransactionApi(Resource):
-
-    @marshal_with(transaction_fields)
-    def get(self, transaction_id):
-        abort_if_todo_doesnt_exist(transaction_id)
-        #return
-        pass
-
-    @marshal_with(transaction_fields)
-    def delete(self, transaction_id):
-        abort_if_todo_doesnt_exist(transaction_id)
-        #return
-        pass
-
-    @marshal_with(transaction_fields)
-    def put(self, transaction_id):
-        args = transaction_parser.parse_args()
-        columnsNameLst = args['columnsNameLst']
-        valuesLst = args['valuesLst']
-        st = Transaction(columnsNameLst, valuesLst)
-        #return
-        pass
 
 
 class TransactionsApi(Resource):
@@ -72,6 +45,10 @@ class TransactionsResultSavingApi(Resource):
         transactionDao = TransactionDao()
         retVal = transactionDao.Save(transaction)
         return jsonify(retVal)
+
+
+
+
       
 
 
